@@ -10,6 +10,7 @@
         <router-link to="/rankings" class="p-2 text-dark">
           Rankings</router-link
         >
+        <router-link to="/stats" class="p-2 text-dark"> Stats</router-link>
         <a href="javascript:void(0);" class="p-2 text-dark" @click="logout"
           >Logout
         </a>
