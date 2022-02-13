@@ -7,6 +7,9 @@
     </router-link>
     <div class="d-flex align-items-center">
       <nav class="my-2my-md-0 mr-md-3" v-if="this.isAuthenticated()">
+        <router-link to="/rankings" class="p-2 text-dark">
+          Rankings</router-link
+        >
         <a href="javascript:void(0);" class="p-2 text-dark" @click="logout"
           >Logout
         </a>
