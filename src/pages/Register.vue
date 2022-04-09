@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     async submit() {
-      await axios.post("register", {
+      await axios.post(`${process.env.VUE_APP_USERS_URL}/register`, {
         first_name: this.first_name,
         last_name: this.last_name,
         email: this.email,

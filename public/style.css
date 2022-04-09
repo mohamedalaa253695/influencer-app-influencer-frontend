@@ -1,0 +1,11 @@
+body{
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+a{
+    text-decoration: none;
+}
+a:hover{
+    opacity: 50%;
+}

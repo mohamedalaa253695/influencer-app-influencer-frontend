@@ -21,7 +21,7 @@ export default {
     };
   },
   async mounted() {
-    const { data } = await axios.get("user");
+    const { data } = await axios.get(`${process.env.VUE_APP_INFLUENCER}/user`);
     console.log(data);
     this.user = new User(data.data);
     this.$store.dispatch("setUser", this.user);

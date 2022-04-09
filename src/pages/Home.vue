@@ -1,48 +1,53 @@
 <template>
+  <div>
   <Header />
-  <div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 mb-4" v-if="link">
-          <div class="alert alert-info" role="alert">
-            Link generate: {{ link }}
+    <div class="album py-5 bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-4" v-if="link">
+            <div class="alert alert-info" role="alert">
+              Link generate: {{ link }}
+            </div>
           </div>
-        </div>
-        <div class="col-md-12 mb-4" v-if="error">
-          <div class="alert alert-danger" role="alert">
-            You should be logged in to generate a link
+          <div class="col-md-12 mb-4" v-if="error">
+            <div class="alert alert-danger" role="alert">
+              You should be logged in to generate a link
+            </div>
           </div>
-        </div>
-        <div class="col-md-12 mb-4 input-group">
-          <input
-            class="form-control"
-            placeholder="Search"
-            @keyup="search($event.target.value)"
-          />
-          <div class="input-group-append" v-if="selected.length > 0">
-            <button class="btn btn-info" @click="generate()">
-              Generate Link
-            </button>
-          </div>
-        </div>
-        <div class="col-md-4" v-for="product in products" :key="product.id">
-          <div
-            class="card mb-4 shadow-sm"
-            @click="select(product.id)"
-            :class="{ selected: isSelected(product.id) }"
-          >
-            <img
-              height="200"
-              class="card-img-top"
-              :src="product.image"
-              :alt="product.title"
+          <div class="col-md-12 mb-4 input-group">
+            <input
+              class="form-control"
+              placeholder="Search"
+              @keyup="search($event.target.value)"
             />
-            <div class="card-body">
-              <p class="card-text">
-                {{ product.title }}
-              </p>
-              <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">${{ product.price }}</small>
+            <div class="input-group-append" v-if="selected.length > 0">
+              <button class="btn btn-info" @click="generate()">
+                Generate Link
+              </button>
+            </div>
+          </div>
+          <div class="col-md-4" v-for="product in products" :key="product.id">
+            <div
+              class="card mb-4 shadow-sm"
+              @click="select(product.id)"
+              :class="{ selected: isSelected(product.id) }"
+            >
+              <img
+                height="200"
+                width="200"
+               style="align-self:center"
+                class="mt-2"
+                :src="product.image"
+                :alt="product.title"
+              />
+              <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-bold fs-5">${{ product.price }}</small>
+                </div>
+                <p class="card-text fw-normal">
+                  {{ product.title }}
+                </p>
+              
               </div>
             </div>
           </div>
@@ -72,7 +77,7 @@ export default {
   },
   methods: {
     async load(text = "") {
-      const { data } = await axios.get(`products?s=${text}`);
+      const { data } = await axios.get(`${process.env.VUE_APP_INFLUENCER}/products?s=${text}`);
       this.products = data.data;
     },
     async search(text) {
@@ -90,10 +95,10 @@ export default {
     },
     async generate() {
       try {
-        const { data } = await axios.post("links", {
+        const { data } = await axios.post(`${process.env.VUE_APP_INFLUENCER}/links`, {
           products: this.selected,
         });
-        this.link = `${process.env.VUE_APP_CHECKOUT}/${data.data.code}`;
+        this.link = `${process.env.VUE_APP_CHECKOUT_URL}/${data.data.code}`;
       } catch (e) {
         this.error = true;
       }
@@ -108,6 +113,6 @@ export default {
 }
 
 .card.selected {
-  border: 4px solid darkcyan;
+  border: 2px solid #0d6efd;
 }
 </style>

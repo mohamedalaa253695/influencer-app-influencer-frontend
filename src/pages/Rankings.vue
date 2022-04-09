@@ -33,7 +33,7 @@ export default {
     };
   },
   async mounted() {
-    const { data } = await axios.get("rankings");
+    const { data } = await axios.get(`${process.env.VUE_APP_INFLUENCER}/rankings`);
     console.log(data);
     this.rankings = data;
   },

@@ -1,5 +1,6 @@
 <template>
-  <div class="wrapper">
+<div class="contianer">
+  <div class="wrapper mt-3">
     <form @submit.prevent="submit">
       <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
@@ -29,9 +30,10 @@
       <button class="w-100 btn btn-lg btn-primary" type="submit">
         Sign in
       </button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+   
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -43,15 +45,22 @@ export default {
     return {
       email: "",
       password: "",
+      token:"",
     };
   },
   methods: {
     async submit() {
-      await axios.post("/login", {
+    const response =  await axios.post(`${process.env.VUE_APP_USERS_URL}/login`, {
         email: this.email,
         password: this.password,
         scope: "influencer",
       });
+     localStorage.setItem("influencer_token", response.data.token);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.data.token}`;
+
+    
       await this.$router.push("/");
     },
   },
